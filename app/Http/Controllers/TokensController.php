@@ -113,6 +113,13 @@ class TokensController extends Controller
 
         foreach ($tokens as $token) {
 
+            // Check transaction is added or not
+            $count = Transaction::where('token_id', $token->id)->count();
+
+            if ($count > 0) {
+                continue;
+            }
+
             $baseUrl  = 'https://api.etherscan.io/api/';
             $response = Http::get($baseUrl, [
                 'module'            => 'account',

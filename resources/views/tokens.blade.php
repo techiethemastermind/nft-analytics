@@ -12,10 +12,11 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
             <div class="col-6">
-                Token List
+                Token List (<span id="tokens_count">1000</span>)
             </div>
             <div class="col-6 text-right">
-                <button id="btn_update" class="btn btn-primary">Update Database</button>
+                <button id="btn_update_tokens" class="btn btn-primary">Update Database</button>
+                <button id="btn_update_transactions" class="btn btn-danger ml-3">Update Total Transactions</button>
             </div>
         </div>
         <div class="card-body">
@@ -48,13 +49,13 @@
                     ajax : {
                         url: "{{ route('list.token') }}",
                         complete: function(res) {
-                            console.log(res);
+                            $('#tokens_count').text(res.responseJSON.count);
                         }
                     },
                     columns: [
                         { data: 'index' },
                         { data: 'token' },
-                        { data: 'address'},
+                        { data: 'contract'},
                         { data: 'action' }
                     ],
                     columnDefs: [
@@ -80,16 +81,30 @@
                     })
                 });
 
-                $('#btn_update').on('click', () => {
+                $('#btn_update_tokens').on('click', () => {
 
-                    console.log('works')
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('update.database') }}",
+                        url: "{{ route('update.tokens') }}",
                         success: function(res) {
-                            console.log(res);
+                            if (res.success) {
+                                alert('Token list updated');
+                            }
                         }
-                    }) 
+                    });
+                });
+
+                $('#btn_update_transactions').on('click', () => {
+
+                    $.ajax({
+                        method: 'POST',
+                        url: "{{ route('update.transactions') }}",
+                        success: function(res) {
+                            if (res.success) {
+                                alert('Transactions list updated');
+                            }
+                        }
+                    });
                 });
             });
         </script>

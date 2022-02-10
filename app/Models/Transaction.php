@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    public $fillable = ['token_id', 'address', 'link', 'method', 'from', 'to', 'token', 'time', 'status', 'error'];
+    public $fillable = ['token_id', 'hash', 'from', 'to', 'tokenId', 'txIndex', 'time'];
 }

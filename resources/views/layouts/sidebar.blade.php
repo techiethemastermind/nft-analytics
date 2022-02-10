@@ -13,7 +13,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{ route('page.token') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Token List</span></a>
@@ -47,7 +47,7 @@
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Action</span></a>

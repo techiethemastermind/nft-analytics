@@ -11,7 +11,7 @@ class Token extends Model
     use HasFactory;
 
     public $fillable = [
-        'name', 'address', 'link'
+        'name', 'symbol', 'contract'
     ];
 
     public function transactions()

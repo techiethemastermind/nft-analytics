@@ -16,13 +16,13 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('token_id');
-            $table->string('address');
-            $table->string('method');
+            $table->string('hash');
             $table->string('from');
             $table->string('to');
-            $table->string('token');
+            $table->string('tokenId');
+            $table->string('txIndex');
+            $table->string('value');
             $table->timestamp('time');
-            $table->string('link');
             $table->timestamps();
         });
     }

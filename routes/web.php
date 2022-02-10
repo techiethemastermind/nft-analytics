@@ -35,4 +35,7 @@ Route::get('/nft-sniper', [App\Http\Controllers\NftSniperController::class, 'ind
 Route::get('/dashboard', [App\Http\Controllers\TokensController::class, 'index'])->name('page.token');
 Route::post('/list/token', [App\Http\Controllers\TokensController::class, 'getList'])->name('list.token');
 Route::post('/list/token/update', [App\Http\Controllers\TokensController::class, 'updateTokenData'])->name('list.token.update');
-Route::post('/tokens/update-db', [App\Http\Controllers\TokensController::class, 'updateDatabase'])->name('update.database');
+
+// Manual Action
+Route::post('/tokens/update', [App\Http\Controllers\TokensController::class, 'updateTokens'])->name('update.tokens');
+Route::post('/transactions/update', [App\Http\Controllers\TokensController::class, 'updateTransactions'])->name('update.transactions');

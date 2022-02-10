@@ -12,12 +12,15 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('home') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+    <!-- Nav Item -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('page.token') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Token List</span></a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
     <!-- Nav Item -->
     <li class="nav-item">
@@ -43,11 +46,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Nav Item -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('page.token') }}">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Token List</span></a>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('home') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Action</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

@@ -120,8 +120,6 @@ class TokensController extends Controller
                 continue;
             }
 
-            dd($token->name);
-
             $baseUrl  = 'https://api.etherscan.io/api/';
             $response = Http::get($baseUrl, [
                 'module'            => 'account',

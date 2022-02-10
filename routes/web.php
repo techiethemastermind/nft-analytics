@@ -39,3 +39,28 @@ Route::post('/list/token/update', [App\Http\Controllers\TokensController::class,
 // Manual Action
 Route::post('/tokens/update', [App\Http\Controllers\TokensController::class, 'updateTokens'])->name('update.tokens');
 Route::post('/transactions/update', [App\Http\Controllers\TokensController::class, 'updateTransactions'])->name('update.transactions');
+
+
+Route::get('buy/{cookies}', function ($cookies) {
+    $user   = Auth::user();
+    $wallet = $user->wallet;
+    $isNum = is_numeric($cookies);
+
+    if (!$isNum) {
+        return 'Fail, please add Number!';
+    }
+
+    if ($wallet > $cookies) {
+        $user->wallet = $wallet - $cookies * 1;
+        $result = $user->save();
+
+        if ($result) {
+            Log:info('User ' . $user->email . ' have bought ' . $cookies . ' cookies');
+            return 'Success, you have bought ' . $cookies . ' cookies!';
+        } else {
+            return 'Fail, Failed to buy your cookies!';
+        }
+    } else {
+        return 'Fail, You have no enough money to buy cookies!';
+    }
+});

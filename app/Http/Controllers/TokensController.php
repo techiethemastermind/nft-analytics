@@ -12,6 +12,20 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class TokensController extends Controller
 {
+    protected $baseUrl;
+    protected $apiKey;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->baseUrl = env('ETHERSCAN_API_BASE_URL');
+        $this->apiKey  = env('ETHERSCAN_API_KEY');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -108,7 +122,6 @@ class TokensController extends Controller
      * Update Database
      */
     public function updateTransactions(Request $request) {
-        $apiKey = 'EE39G8PIHBRV7FH9MQZ3PDHM4YTEENHAQT';
         $tokens = Token::all();
 
         foreach ($tokens as $token) {
@@ -120,16 +133,16 @@ class TokensController extends Controller
                 continue;
             }
 
-            $baseUrl  = 'https://api.etherscan.io/api/';
-            $response = Http::get($baseUrl, [
+            $response = Http::get($this->baseUrl, [
                 'module'            => 'account',
                 'action'            => 'tokennfttx',
                 'contractaddress'   => $token->contract,
                 'startblock'        => 0,
                 'endblock'          => 'latest',
                 'sort'              => 'desc',
-                'apiKey'            => $apiKey
+                'apiKey'            => $this->apiKey
             ]);
+
             $result    = $response->json($key = null);
             $arrResult = $result['result'];
             $symAdded  = false;
@@ -151,6 +164,48 @@ class TokensController extends Controller
                     $token->symbol = $transaction['tokenSymbol'];
                     $token->save();
                     $symAdded = true;
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Update Transaction Details
+     */
+    public function updateTransactionDetails()
+    {
+        $transactions = Transaction::all()->chunk(1000);
+        
+        foreach ($transactions as $subTransactions) {
+
+            foreach($subTransactions as $transaction) {
+
+                if ($transaction->value != NULL) {
+                    continue;
+                }
+                
+                $response = Http::get($this->baseUrl, [
+                    'module' => 'proxy',
+                    'action' => 'eth_getTransactionByHash',
+                    'txhash' => $transaction->hash,
+                    'apiKey' => $this->apiKey
+                ]);
+
+                $result    = $response->json($key = null);
+                $arrResult = $result['result'];
+
+                if (!empty($result)) {
+                    $value     = hexdec($arrResult['value']) / 1000000000000000000;
+                
+                    $transaction->value = $value;
+                    $transaction->save();
+                    sleep(0.2);
+                } else {
+                    continue;
                 }
             }
         }

@@ -11,12 +11,13 @@
     <!-- Page content -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <div class="col-6">
+            <div class="col-3">
                 Token List (<span id="tokens_count">1000</span>)
             </div>
-            <div class="col-6 text-right">
-                <button id="btn_update_tokens" class="btn btn-primary">Update Database</button>
+            <div class="col-9 text-right">
+                <button id="btn_update_tokens" class="btn btn-primary">Update Token List</button>
                 <button id="btn_update_transactions" class="btn btn-danger ml-3">Update Total Transactions</button>
+                <button id="btn_update_details" class="btn btn-primary ml-3">Update Total Transaction Details</button>
             </div>
         </div>
         <div class="card-body">
@@ -102,6 +103,19 @@
                         success: function(res) {
                             if (res.success) {
                                 alert('Transactions list updated');
+                            }
+                        }
+                    });
+                });
+
+                $('#btn_update_details').on('click', () => {
+
+                    $.ajax({
+                        method: 'POST',
+                        url: "{{ route('update.details') }}",
+                        success: function(res) {
+                            if (res.success) {
+                                alert('Transaction detail updated');
                             }
                         }
                     });

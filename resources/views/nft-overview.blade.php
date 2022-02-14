@@ -15,53 +15,14 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="tbl_tokens" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>No</th>
+                            <th>Token</th>
+                            <th>15min</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>$86,000</td>
-                        </tr>
-                    </tbody>
                 </div>
             </div>
         </div>
@@ -73,7 +34,23 @@
 
             $(function() {
 
-                // $('#dataTable').DataTable();
+                $('#tbl_tokens').DataTable({
+                    loadingIndicator: true,
+                    pageLength: 25,
+                    serverMethod: 'POST',
+                    scrollCollapse: true,
+                    ajax : {
+                        url: "{{ route('nft-overview-data') }}",
+                        complete: function(res) {
+                            $('#tokens_count').text(res.responseJSON.count);
+                        }
+                    },
+                    columns: [
+                        { data: 'index' },
+                        { data: 'token' },
+                        { data: 'result'},
+                    ]
+                });
             });
         </script>
     @endpush

@@ -178,38 +178,42 @@ class TokensController extends Controller
      */
     public function updateTransactionDetails()
     {
-        $transactions = Transaction::all()->chunk(1000);
-        
-        foreach ($transactions as $subTransactions) {
+        $tokens = Token::all();
 
-            foreach($subTransactions as $transaction) {
+        foreach ($tokens as $token) {
+            $transactions = $token->transactions->chunk(1000);
 
-                if ($transaction->value != NULL) {
-                    continue;
-                }
-                
-                $response = Http::get($this->baseUrl, [
-                    'module' => 'proxy',
-                    'action' => 'eth_getTransactionByHash',
-                    'txhash' => $transaction->hash,
-                    'apiKey' => $this->apiKey
-                ]);
+            foreach ($transactions as $subTransactions) {
 
-                $result    = $response->json($key = null);
-                $arrResult = $result['result'];
-
-                if (!empty($result)) {
-                    $value     = hexdec($arrResult['value']) / 1000000000000000000;
-                
-                    $transaction->value = $value;
-                    $transaction->save();
-                    sleep(0.2);
-                } else {
-                    continue;
+                foreach($subTransactions as $transaction) {
+    
+                    if ($transaction->value != NULL) {
+                        continue;
+                    }
+                    
+                    $response = Http::get($this->baseUrl, [
+                        'module' => 'proxy',
+                        'action' => 'eth_getTransactionByHash',
+                        'txhash' => $transaction->hash,
+                        'apiKey' => $this->apiKey
+                    ]);
+    
+                    $result    = $response->json($key = null);
+                    $arrResult = $result['result'];
+    
+                    if (!empty($result)) {
+                        $value     = hexdec($arrResult['value']) / 1000000000000000000;
+                    
+                        $transaction->value = $value;
+                        $transaction->save();
+                        sleep(0.2);
+                    } else {
+                        continue;
+                    }
                 }
             }
         }
-
+        
         return response()->json([
             'success' => true
         ]);

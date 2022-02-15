@@ -181,7 +181,8 @@ class TokensController extends Controller
         $tokens = Token::all();
 
         foreach ($tokens as $token) {
-            $transactions = $token->transactions->chunk(1000);
+
+            $transactions = $token->transactions->chunk(10);
 
             foreach ($transactions as $subTransactions) {
 
@@ -213,7 +214,7 @@ class TokensController extends Controller
                 }
             }
         }
-        
+
         return response()->json([
             'success' => true
         ]);

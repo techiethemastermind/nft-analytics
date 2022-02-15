@@ -27,7 +27,7 @@ class NftOverviewController extends Controller
         $tt      = 3;   // TT count
         
         $data = [];
-        $i    = 0;
+        $loop = 0;
         
         foreach ($tokens as $token) {
             $temp = [];
@@ -53,11 +53,12 @@ class NftOverviewController extends Controller
             $ttResult  = ($nftValues['totalSale'] > $ttAverage) ? 'UP' : 'DN';
             $tfResult  = ($nftValues['floorValue'] > $tfAverage) ? 'UP' : 'DN';
 
-            $temp['index'] = $i;
+            $temp['index'] = $loop;
             $temp['token'] = $token->name;
             $eleTT = 'T' . $nftValues['totalSale'] . ' / ' . $ttResult . ' <br> WF' . $nftValues['wfValue'];
             $eleTF = 'FL' . $nftValues['floorValue'] . ' / ' . $tfResult . ' <br> AV' . $nftValues['averagePrice'];
             $temp['result'] = '<div class="left">' . $eleTT . '</div><div class="right">' . $eleTF . '</div>';
+            $loop++;
             array_push($data, $temp);
         }
 

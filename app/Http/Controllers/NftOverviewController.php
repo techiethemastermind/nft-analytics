@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Token;
-use App\models\Transaction;
+use App\Models\Transaction;
 use Carbon\Carbon;
 
 class NftOverviewController extends Controller

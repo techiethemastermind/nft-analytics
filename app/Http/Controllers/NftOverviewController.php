@@ -22,16 +22,16 @@ class NftOverviewController extends Controller
      */
     public function getTableData()
     {
-        $tokens  = Token::paginate(3);
+        $tokens  = Token::skip(0)->take(3)->get();
         $ttValue = 15;  // TT value
         $tt      = 3;   // TT count
         
         $data = [];
-        $loop = 0;
+        $loop = 1;
         
         foreach ($tokens as $token) {
             $temp = [];
-            $txFirst   = Transaction::where('token_id', $token->id)->orderBy('time', 'desc')->first();
+            $txFirst   = $token->transactions()->take(100)->orderBy('time', 'desc')->first();
             $timeTo    = (int)$txFirst->time;
             $timeFrom  = $timeTo - $ttValue * 60;
             $nftValues = $this->getNftOverviewValues($token->id, $timeFrom, $timeTo);
@@ -77,7 +77,10 @@ class NftOverviewController extends Controller
      */
     private function getNftOverviewValues($tokenId, $timeFrom, $timeTo): array
     {
-        $transactions = Transaction::where('token_id', $tokenId)->whereBetween('time', [$timeFrom, $timeTo])->get();
+        $transactions = Transaction::select(['value', 'to'])
+            ->where('token_id', $tokenId)
+            ->whereBetween('time', [$timeFrom, $timeTo])
+            ->limit(100)->get();
         $totalSale    = $transactions->count(); // T
         $averagePrice = $transactions->avg('value'); // AV
         $floorValue   = $transactions->min('value'); // Floor

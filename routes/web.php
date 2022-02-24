@@ -19,29 +19,31 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\TokensController::class, 'index'])->name('home');
-Route::get('/tokens', [App\Http\Controllers\ScrapController::class, 'scrappingTokens'])->name('tokens');
-Route::get('/transactions', [App\Http\Controllers\ScrapController::class, 'scrappingTransactions'])->name('transactions');
-Route::get('/transactions-update', [App\Http\Controllers\ScrapController::class, 'updatingTransactions'])->name('transactions.update');
-Route::get('/transactions/items', [App\Http\Controllers\ScrapController::class, 'scrappingTransactionItems'])->name('transactions.items');
-Route::get('/transactions/items-update', [App\Http\Controllers\ScrapController::class, 'updatingTransactionItems'])->name('transactions.items.update');
-Route::get('/stop', [App\Http\Controllers\ScrapController::class, 'stopScrapping'])->name('stop');
-Route::get('/action', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Pages
-Route::get('/nft-total-overview', [App\Http\Controllers\NftOverviewController::class, 'index'])->name('nft-overview');
-Route::post('/nft-overview/data', [App\Http\Controllers\NftOverviewController::class, 'getTableData'])->name('nft-overview-data');
-
-Route::get('/floor-daily-overview', [App\Http\Controllers\FloorOverviewController::class, 'index'])->name('floor-overview');
-Route::get('/nft-sniper', [App\Http\Controllers\NftSniperController::class, 'index'])->name('nft-sniper');
-Route::get('/dashboard', [App\Http\Controllers\TokensController::class, 'index'])->name('page.token');
-Route::post('/list/token', [App\Http\Controllers\TokensController::class, 'getList'])->name('list.token');
-Route::post('/list/token/update', [App\Http\Controllers\TokensController::class, 'updateTokenData'])->name('list.token.update');
-
-Route::get('/config', [App\Http\Controllers\ConfigController::class, 'index'])->name('config');
-Route::post('/config/store', [App\Http\Controllers\ConfigController::class, 'store'])->name('config.store');
-
-// Manual Action
-Route::post('/tokens/update', [App\Http\Controllers\TokensController::class, 'updateTokens'])->name('update.tokens');
-Route::post('/transactions/update', [App\Http\Controllers\TokensController::class, 'updateTransactions'])->name('update.transactions');
-Route::post('/transactions/update/details', [App\Http\Controllers\TokensController::class, 'updateTransactionDetails'])->name('update.details');
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\TokensController::class, 'index'])->name('home');
+    Route::get('/tokens', [App\Http\Controllers\ScrapController::class, 'scrappingTokens'])->name('tokens');
+    Route::get('/transactions', [App\Http\Controllers\ScrapController::class, 'scrappingTransactions'])->name('transactions');
+    Route::get('/transactions-update', [App\Http\Controllers\ScrapController::class, 'updatingTransactions'])->name('transactions.update');
+    Route::get('/transactions/items', [App\Http\Controllers\ScrapController::class, 'scrappingTransactionItems'])->name('transactions.items');
+    Route::get('/transactions/items-update', [App\Http\Controllers\ScrapController::class, 'updatingTransactionItems'])->name('transactions.items.update');
+    Route::get('/stop', [App\Http\Controllers\ScrapController::class, 'stopScrapping'])->name('stop');
+    Route::get('/action', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    // Pages
+    Route::get('/nft-total-overview', [App\Http\Controllers\NftOverviewController::class, 'index'])->name('nft-overview');
+    Route::post('/nft-overview/data', [App\Http\Controllers\NftOverviewController::class, 'getTableData'])->name('nft-overview-data');
+    
+    Route::get('/floor-daily-overview', [App\Http\Controllers\FloorOverviewController::class, 'index'])->name('floor-overview');
+    Route::get('/nft-sniper', [App\Http\Controllers\NftSniperController::class, 'index'])->name('nft-sniper');
+    Route::get('/dashboard', [App\Http\Controllers\TokensController::class, 'index'])->name('page.token');
+    Route::post('/list/token', [App\Http\Controllers\TokensController::class, 'getList'])->name('list.token');
+    Route::post('/list/token/update', [App\Http\Controllers\TokensController::class, 'updateTokenData'])->name('list.token.update');
+    
+    Route::get('/config', [App\Http\Controllers\ConfigController::class, 'index'])->name('config');
+    Route::post('/config/store', [App\Http\Controllers\ConfigController::class, 'store'])->name('config.store');
+    
+    // Manual Action
+    Route::post('/tokens/update', [App\Http\Controllers\TokensController::class, 'updateTokens'])->name('update.tokens');
+    Route::post('/transactions/update', [App\Http\Controllers\TokensController::class, 'updateTransactions'])->name('update.transactions');
+    Route::post('/transactions/update/details', [App\Http\Controllers\TokensController::class, 'updateTransactionDetails'])->name('update.details');
+});

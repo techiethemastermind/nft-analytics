@@ -9,7 +9,9 @@ class ConfigController extends Controller
 {
     public function index()
     {
-        return view('config');
+        $config = Config::where('key', 'tt.values')->first();
+        $ttValues = $config->value;
+        return view('config', compact('ttValues'));
     }
 
     /**
@@ -22,7 +24,7 @@ class ConfigController extends Controller
                 $key = str_replace('__', '.', $key);
                 $config = Config::firstOrCreate(['key' => $key]);
                 if($value !== null) {
-                    $config->value = $value;
+                    $config->value = json_encode($value);
                 }
                 $config->save();
             }

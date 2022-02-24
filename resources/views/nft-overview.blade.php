@@ -40,7 +40,7 @@
                     serverMethod: 'POST',
                     scrollCollapse: true,
                     ajax : {
-                        url: "{{ route('nft-overview-data') }}",
+                        url: "{{ route('dashboard.nft-overview-data') }}",
                         complete: function(res) {
                             $('#tokens_count').text(res.responseJSON.count);
                         }

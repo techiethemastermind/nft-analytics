@@ -48,7 +48,7 @@
                     serverMethod: 'POST',
                     scrollCollapse: true,
                     ajax : {
-                        url: "{{ route('list.token') }}",
+                        url: "{{ route('dashboard.list.token') }}",
                         complete: function(res) {
                             $('#tokens_count').text(res.responseJSON.count);
                         }
@@ -72,7 +72,7 @@
 
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('list.token.update') }}",
+                        url: "{{ route('dashboard.list.token.update') }}",
                         data: {
                             token_id: tokenId
                         },
@@ -86,7 +86,7 @@
 
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('update.tokens') }}",
+                        url: "{{ route('dashboard.update.tokens') }}",
                         success: function(res) {
                             if (res.success) {
                                 alert('Token list updated');
@@ -99,7 +99,7 @@
 
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('update.transactions') }}",
+                        url: "{{ route('dashboard.update.transactions') }}",
                         success: function(res) {
                             if (res.success) {
                                 alert('Transactions list updated');
@@ -112,7 +112,7 @@
 
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('update.details') }}",
+                        url: "{{ route('dashboard.update.details') }}",
                         success: function(res) {
                             if (res.success) {
                                 alert('Transaction detail updated');

@@ -51,7 +51,7 @@
         $('#btn_tokens').on('click', function() {
 
             $.ajax({
-                url: "{{ route('tokens') }}",
+                url: "{{ route('dashboard.tokens') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);
@@ -65,7 +65,7 @@
         $('#btn_transactions').on('click', function() {
 
             $.ajax({
-                url: "{{ route('transactions') }}",
+                url: "{{ route('dashboard.transactions') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);
@@ -79,7 +79,7 @@
         $('#btn_transactions_update').on('click', function() {
 
             $.ajax({
-                url: "{{ route('transactions.update') }}",
+                url: "{{ route('dashboard.transactions.update') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);
@@ -93,7 +93,7 @@
         $('#btn_transaction_items').on('click', function() {
 
             $.ajax({
-                url: "{{ route('transactions.items') }}",
+                url: "{{ route('dashboard.transactions.items') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);
@@ -107,7 +107,7 @@
         $('#btn_transaction_items_update').on('click', function() {
 
             $.ajax({
-                url: "{{ route('transactions.items.update') }}",
+                url: "{{ route('dashboard.transactions.items.update') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);
@@ -121,7 +121,7 @@
         $('#btn_stop').on('click', function() {
 
             $.ajax({
-                url: "{{ route('stop') }}",
+                url: "{{ route('dashboard.stop') }}",
                 method: "get",
                 success: function(res) {
                     console.log(res);

@@ -14,7 +14,7 @@
 
     <!-- Nav Item -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{ route('page.token') }}">
+        <a class="nav-link" href="{{ route('dashboard.page.token') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Token List</span></a>
     </li>
@@ -24,21 +24,21 @@
 
     <!-- Nav Item -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('nft-overview') }}">
+        <a class="nav-link" href="{{ route('dashboard.nft-overview') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>NFT Total Overview</span></a>
     </li>
 
     <!-- Nav Item -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('floor-overview') }}">
+        <a class="nav-link" href="{{ route('dashboard.floor-overview') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Floor Daily Overview</span></a>
     </li>
 
     <!-- Nav Item -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('nft-sniper') }}">
+        <a class="nav-link" href="{{ route('dashboard.nft-sniper') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>NFT Sniper Overview</span></a>
     </li>
@@ -48,14 +48,14 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('config') }}">
+        <a class="nav-link" href="{{ route('dashboard.config') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Setting</span></a>
     </li>
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">
+        <a class="nav-link" href="{{ route('dashboard.home') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Action</span></a>
     </li>
